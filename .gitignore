@@ -1,0 +1,17 @@
+/php/symfony/web/bundles/
+/php/symfony/app/bootstrap.php.cache
+/php/symfony/app/cache/*
+/php/symfony/app/config/parameters.yml
+/php/symfony/app/logs/*
+/php/symfony!app/cache/.gitkeep
+/php/symfony!app/logs/.gitkeep
+/php/symfony/app/phpunit.xml
+/php/symfony/build/
+/php/symfony/vendor/
+/php/symfony/bin/
+/php/symfony/composer.phar
+/php/symfony/nbproject/private/
+# Elastic Beanstalk Files
+/php/symfony.elasticbeanstalk/*
+/php/symfony!.elasticbeanstalk/*.cfg.yml
+/php/symfony!.elasticbeanstalk/*.global.yml

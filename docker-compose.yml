@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+    db:
+        image: mysql:5.6
+        command: mysqld --sql_mode=""
+        ports:
+            - 3306:3306
+        volumes:
+            - "./.data/db:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+    php:
+        image: businessphplocal
+        links:
+            - db
+        ports:
+            - 9000:9000
+        volumes:
+            - ./php/symfony:/var/www/symfony
+            - ./php/symfony/app/logs:/var/www/symfony/app/logs
+    nginx:
+        image: businessnginxlocal
+        ports:
+            - 80:80
+        links:
+            - php
+        volumes:
+            - /var/logs/nginx
+        volumes_from:
+            - php

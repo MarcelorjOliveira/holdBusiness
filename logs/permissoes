@@ -1,0 +1,3 @@
+chmod 777 /var/www/symfony/web/oneup/uploads
+chmod 777 /var/www/symfony/app/cache
+chmod 777 /var/www/symfony/web/images/perfil/pin/resumo

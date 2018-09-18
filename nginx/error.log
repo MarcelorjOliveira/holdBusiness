@@ -1,0 +1,5 @@
+2017/10/04 17:28:01 [emerg] 1#0: unknown directive "1,5}$" in /etc/nginx/sites-enabled/symfony:28
+2017/10/04 17:30:20 [emerg] 1#0: unknown directive "1,5}$" in /etc/nginx/sites-enabled/symfony:14
+2017/10/04 18:52:33 [emerg] 1#0: no port in upstream "php-upstream" in /etc/nginx/sites-enabled/symfony:15
+2017/10/04 18:56:35 [emerg] 1#0: no port in upstream "php-upstream" in /etc/nginx/sites-enabled/symfony:15
+2017/10/04 18:58:00 [emerg] 1#0: no port in upstream "php-upstream" in /etc/nginx/sites-enabled/symfony:15

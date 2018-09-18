@@ -1,0 +1,20 @@
+<?php
+
+namespace AppBundle\Form;
+
+use AppBundle\Form\UsuarioForm;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+class ExpositorForm extends UsuarioForm {
+
+	public function buildForm(FormBuilderInterface $builder,  array $options) {
+		$builder->add('titulo', TextType::class, array('label' => 'Nome'))
+						->add('codigoTitulo', TextType::class, array('label' => 'CPF'));
+			parent::buildForm($builder, $options);
+	}
+}

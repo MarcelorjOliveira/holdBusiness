@@ -1,0 +1,185 @@
+{% extends 'layout/inicial.html.twig' %}
+{% block conteudoInicial%}
+    <script>
+        $(document).ready(function () {
+            $('#botaoMenu').click(function () {
+                $("#abaMenu").css('display', 'block');
+                $("#abaTimeline").css('display', 'none');
+                $("#abaPropaganda").css('display', 'none');
+            });
+
+        });
+
+</script>
+    </script>
+
+    <style type='text/css'>
+
+        #menuHold ul {
+            margin: 0px;
+            padding: 0px;
+            background-color: #729fcf;
+            list-style: none;
+            height: 10vh;
+            line-height: 10vh;
+        }
+
+        #menuHold ul li{
+            float: left;
+            vertical-align: middle;
+            float: left;
+        }
+
+        .pesquisaBox {
+            height: 10vh;
+        }
+
+        #botaoSair {
+            text-align: right;
+        }
+
+        #botaoMenu {
+            display:none;
+        }
+
+        #pesquisaForm .input-group{
+            width: 100%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+
+        #botaoPesquisa {
+            width: 10%;
+        }
+
+        @media (min-width: 320px) and (max-width: 767px) {
+            #botaoTimeline{
+                text-align: center;
+                width: 55px;
+            }
+
+            #botaoMenu{
+                display: block;
+                font-size: 24px;
+                color: #337ab7;
+            }
+
+            #abaMenu {
+                display: none;
+            }
+
+            #botaoPesquisa {
+                width: 4%;
+            }
+
+            #botaoFormPesquisa {
+                height: 10vh;
+            }
+
+            #pesquisaForm .input-group{
+                margin-top: 7px;
+                margin-bottom: 7px;
+            }
+
+            #botaoFormPesquisa .form-control {
+                /* display: table-cell;
+                vertical-align: middle;
+                height: 4vh;
+                line-height: 4vh;
+                padding: 0;
+                */
+            }
+
+            #logoBusiness {
+                height: 80%;
+            }
+
+        }
+    </style>
+
+    <nav id="menuHold">
+        <ul class="navbar navbar-pills">
+            <li id="botaoTimeline" class="col-lg-2" >
+                <a  href="{{path ('homepage')}}/hold"><img src="{{ asset('images/logoHold.png') }}" id="logoBusiness"></a>
+            </li>
+            <li id="botaoFormPesquisa" class="col-xs-3 col-lg-7">
+                <form name="pesquisa" id="pesquisaForm" method="post" role="search" action="{{path ('homepage')}}/hold/pesquisa">
+                    <div class="input-group">
+                        <input type="text" id="pesquisa" name="pesquisa" class="form-control">
+                        <!-- Trocar sem form control colocando float left entre dois elementos -->
+                        <span id="botaoPesquisa" class="input-group-addon" style="width: 10%"><span class=" clicavel glyphicon glyphicon-search" onclick="pesquisa.submit();"></span></span>
+                    </div>
+                </form>
+            </li>
+            <li id="botaoMenu" class="col-xs-2">
+                <span id="botaoMenuSpan" class="fa fa-bars fa-lg"></span>
+            </li>
+            <li id="botaoLogout" class="col-xs-3 col-lg-3" style="text-align: right">
+                <a href="{{logout_path('main') }}" class="btn btn-primary">Sair</a>
+            </li>
+
+        </ul>
+    </nav>
+
+    <div class="row container-fluid" id = "principal">
+
+        <div id="holdAba">
+            {% block conteudoHold %}
+                <div id="abaMenu" class="col-lg-2">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapsePerfil">Perfil</a>
+                                </h4>
+                            </div>
+                            <div id="collapsePerfil" class="panel-collapse collapse">
+                                <ul class="list-group">
+                                    <li class="list-group-item"><a href="{{path ('perfil', {'id' : app.user.id} )}}"> {{ app.user.titulo }}</a></li>
+                                    <li class="list-group-item"><a href="{{path ('homepage')}}/perfil/editar"> <span class="glyphicon glyphicon-file"></span>Editar Perfil</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseProjeto">Projeto</a>
+                                </h4>
+                            </div>
+                            <div id="collapseProjeto" class="panel-collapse collapse">
+                                <ul class="list-group">
+                                    <li class="list-group-item"><a href="{{path ('homepage')}}/project/criar">Adicionar</a></li>
+                                        {% for project in app.user.projects %}
+                                        <li class="list-group-item"> <a href="{{path ('projectindex', {'id' : project.id} )}}" class="list-group-item" >{{project.nome}}</a></li>
+                                        {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% block timeLineHold %}
+                    <div id="abaTimeline" class="col-lg-7">
+                        {% block conteudoTimeLineHold %}
+                            <div id="timelineIndex">
+                                <div id="comments-container">
+                                </div>
+                                {% for action in timeline %}
+                                    {{ render(controller('AppBundle:ActionTimeline:timeline', {'action' : action } )) }}
+                                {% endfor %}
+                            </div>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+            {% endblock %}
+        </div>
+        {% block propagandaHold %}
+            <div id="abaPropaganda" class="col-lg-3">
+                <div id="canvasIndex">
+                    {{ include ('layout/hold/propagandaHold.html.twig') }}
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+
+{% endblock %}
